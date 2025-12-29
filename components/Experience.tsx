@@ -6,8 +6,8 @@ import { Briefcase, GraduationCap, CheckCircle, ChevronRight, ChevronLeft } from
 const Experience: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Reverse experience to show chronological order (Oldest -> Newest) for Left-to-Right timeline
-  const sortedExperience = [...EXPERIENCE].reverse();
+  // Show chronological order (Newest -> Oldest) for Left-to-Right timeline
+  const sortedExperience = EXPERIENCE;
 
   const scroll = (direction: 'left' | 'right') => {
     if (containerRef.current) {
@@ -53,43 +53,7 @@ const Experience: React.FC = () => {
                 ref={containerRef} 
                 className="flex flex-row overflow-x-auto gap-8 pb-12 pt-8 no-scrollbar snap-x snap-mandatory px-6 md:px-12 items-stretch"
             >
-                 {/* 1. Education Section (Start of Timeline - Left) */}
-                 <motion.div 
-                    className="relative flex-shrink-0 w-[85vw] md:w-[450px] snap-center flex flex-col"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0 }}
-                 >
-                     {/* Connecting Line (Right) - Connects to first job */}
-                     <div className="hidden md:block absolute top-[40px] left-1/2 w-[calc(100%+32px)] h-0.5 bg-stone-200 -z-10" />
-
-                     {/* Timeline Dot (Desktop) */}
-                    <div className="hidden md:flex absolute top-[40px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-stone-500 z-10 shadow-sm" />
-                    
-                    {/* Spacer for alignment with job cards which have a date label */}
-                    <div className="hidden md:block mb-8 pl-0 opacity-0 h-[30px] w-full">
-                        <span className="inline-block px-3 py-1 text-xs">Spacer</span>
-                    </div>
-
-                    <div className="bg-stone-900 text-white p-6 md:p-8 rounded-xl shadow-xl h-full flex flex-col justify-center items-center text-center relative overflow-hidden min-h-[300px] flex-1">
-                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-stone-700 to-stone-800"></div>
-                         <div className="p-4 bg-stone-800 rounded-full mb-6">
-                            <GraduationCap className="w-8 h-8 text-stone-300" />
-                         </div>
-                         <h3 className="text-xl font-bold mb-2">{EDUCATION.school}</h3>
-                         <p className="text-stone-400 mb-4">{EDUCATION.degree}</p>
-                         <div className="inline-block px-4 py-1 border border-stone-700 rounded-full text-xs text-stone-300">
-                            {EDUCATION.period}
-                         </div>
-                         <div className="mt-6 pt-6 border-t border-stone-800 w-full">
-                            <p className="text-xs text-stone-500 font-medium uppercase tracking-wider mb-2">Award</p>
-                            <p className="text-sm italic text-stone-300">"{EDUCATION.award}"</p>
-                         </div>
-                    </div>
-                 </motion.div>
-
-                {/* 2. Experience Cards (Oldest -> Newest) */}
+                {/* 1. Experience Cards (Newest -> Oldest) */}
                 {sortedExperience.map((exp, index) => (
                     <motion.div 
                         key={exp.id}
@@ -97,12 +61,10 @@ const Experience: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: (index + 1) * 0.1 }}
+                        transition={{ delay: index * 0.1 }}
                     >
-                        {/* Connecting Line (Right) - Connects to next card, unless it's the last one */}
-                        {index !== sortedExperience.length - 1 && (
-                            <div className="hidden md:block absolute top-[40px] left-1/2 w-[calc(100%+32px)] h-0.5 bg-stone-200 -z-10" />
-                        )}
+                        {/* Connecting Line (Right) - Connects to next card or Education card */}
+                        <div className="hidden md:block absolute top-[40px] left-1/2 w-[calc(100%+32px)] h-0.5 bg-stone-200 -z-10" />
 
                         {/* Timeline Dot (Desktop) */}
                         <div className="hidden md:flex absolute top-[40px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-stone-900 z-10 shadow-sm" />
@@ -171,6 +133,40 @@ const Experience: React.FC = () => {
                         </div>
                     </motion.div>
                 ))}
+
+                 {/* 2. Education Section (End of Timeline - Right) */}
+                 <motion.div 
+                    className="relative flex-shrink-0 w-[85vw] md:w-[450px] snap-center flex flex-col"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: sortedExperience.length * 0.1 }}
+                 >
+                     {/* No connecting line to the right for the last item */}
+                     {/* Timeline Dot (Desktop) */}
+                    <div className="hidden md:flex absolute top-[40px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-stone-500 z-10 shadow-sm" />
+                    
+                    {/* Spacer for alignment with job cards which have a date label */}
+                    <div className="hidden md:block mb-8 pl-0 opacity-0 h-[30px] w-full">
+                        <span className="inline-block px-3 py-1 text-xs">Spacer</span>
+                    </div>
+
+                    <div className="bg-stone-900 text-white p-6 md:p-8 rounded-xl shadow-xl h-full flex flex-col justify-center items-center text-center relative overflow-hidden min-h-[300px] flex-1">
+                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-stone-700 to-stone-800"></div>
+                         <div className="p-4 bg-stone-800 rounded-full mb-6">
+                            <GraduationCap className="w-8 h-8 text-stone-300" />
+                         </div>
+                         <h3 className="text-xl font-bold mb-2">{EDUCATION.school}</h3>
+                         <p className="text-stone-400 mb-4">{EDUCATION.degree}</p>
+                         <div className="inline-block px-4 py-1 border border-stone-700 rounded-full text-xs text-stone-300">
+                            {EDUCATION.period}
+                         </div>
+                         <div className="mt-6 pt-6 border-t border-stone-800 w-full">
+                            <p className="text-xs text-stone-500 font-medium uppercase tracking-wider mb-2">Award</p>
+                            <p className="text-sm italic text-stone-300">"{EDUCATION.award}"</p>
+                         </div>
+                    </div>
+                 </motion.div>
             </div>
             
              {/* Hint for mobile */}

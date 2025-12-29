@@ -80,9 +80,11 @@ const Hero: React.FC = () => {
                    onClick={() => setIsQRExpanded(true)}
                    className="w-32 h-32 bg-white p-2 rounded-xl shadow-2xl cursor-pointer hover:shadow-stone-500/20 transition-all duration-300 group"
                 >
-                    <div className="w-full h-full bg-stone-100 flex items-center justify-center text-stone-900 text-xs text-center font-bold leading-tight border border-stone-200 rounded-lg group-hover:bg-stone-50 transition-colors">
-                        微信<br/>二维码<br/>
-                        <span className="text-[10px] font-normal text-stone-500 mt-1 scale-90 block">点击放大</span>
+                    <div className="w-full h-full bg-stone-100 flex items-center justify-center text-stone-900 text-xs text-center font-bold leading-tight border border-stone-200 rounded-lg group-hover:bg-stone-50 transition-colors relative overflow-hidden">
+                        <img src={PERSONAL_INFO.qrCode} alt="Wechat QR" className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300">
+                             <span className="text-white text-xs font-bold">点击放大</span>
+                        </div>
                     </div>
                 </motion.div>
                 <span className="text-[10px] text-stone-400 mt-3 uppercase tracking-wider">Scan to Add Wechat</span>
@@ -126,9 +128,9 @@ const Hero: React.FC = () => {
                     <X className="w-8 h-8" />
                 </button>
                 
-                {/* Placeholder for Real QR Code Image */}
-                <div className="aspect-square w-full bg-stone-50 flex items-center justify-center text-stone-900 text-xl text-center font-bold border-2 border-dashed border-stone-300 rounded-xl mb-4">
-                        此处为<br/>微信二维码图片
+                {/* Real QR Code Image */}
+                <div className="aspect-square w-full bg-stone-50 flex items-center justify-center rounded-xl mb-4 overflow-hidden border border-stone-100">
+                    <img src={PERSONAL_INFO.qrCode} alt="Wechat QR Full Size" className="w-full h-full object-contain" />
                 </div>
                 
                 <h3 className="text-lg font-bold text-stone-900 mb-1">扫一扫加我微信</h3>

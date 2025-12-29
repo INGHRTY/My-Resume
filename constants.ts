@@ -8,6 +8,7 @@ export const PERSONAL_INFO = {
   location: "郑州",
   experience_years: "4年",
   intro: "拥有4年工作经验的视觉创作者。精通全国连锁品牌短视频全流程，擅长商业宣传片、婚礼纪实及活动摄影。具备扎实的后期剪辑能力与敏锐的镜头美学。",
+  qrCode: "./wechat-qr.jpg" // Ensure you place the image named 'wechat-qr.jpg' in your public folder/root
 };
 
 export const SKILLS: SkillItem[] = [

@@ -59,10 +59,7 @@ const Contact: React.FC<ContactProps> = ({ id = "contact", simple = false }) => 
           {/* QR Code */}
           <div className={`flex flex-col items-center ${simple ? 'md:items-center' : 'md:items-end'}`}>
             <div className="w-32 h-32 bg-white p-2 rounded-lg mb-2 shadow-lg">
-                 {/* Placeholder for QR Code */}
-                 <div className="w-full h-full bg-stone-200 flex items-center justify-center text-stone-900 text-xs text-center font-bold">
-                    微信<br/>二维码
-                 </div>
+                 <img src={PERSONAL_INFO.qrCode} alt="Wechat QR" className="w-full h-full object-contain" />
             </div>
             <span className="text-xs text-stone-500">扫码添加微信</span>
           </div>
